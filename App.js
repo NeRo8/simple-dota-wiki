@@ -20,12 +20,12 @@ import {
   Button,
   TextInput
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 
 import Hero from './app/data/Hero';
 import HeroStats from './app/data/HeroStats';
 
-import color from './app/constants/colors';
+import SearchBar from './app/components/SearchBar';
+
 import iconAttr from './app/constants/iconAttr';
 import colors from './app/constants/colors';
 
@@ -81,41 +81,6 @@ export default class App extends Component {
     </View>
   );
 
-  _renderSearchBar = item => (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-    >
-      <TextInput
-        style={{
-          height: 40,
-          marginVertical: 5,
-          flex: 1,
-          padding: 5,
-          backgroundColor: colors.SILVER,
-          borderTopLeftRadius: 10,
-          borderBottomLeftRadius: 10
-        }}
-      />
-      <Icon
-        name="ios-search"
-        type="ionicon"
-        color="#000"
-        size={35}
-        containerStyle={{
-          backgroundColor: colors.SILVER,
-          height: 40,
-          borderTopRightRadius: 10,
-          borderBottomRightRadius: 10
-        }}
-        iconStyle={{ paddingRight: 5 }}
-      />
-    </View>
-  );
-
   render() {
     return (
       <View style={styles.container}>
@@ -123,7 +88,7 @@ export default class App extends Component {
           data={Hero}
           renderItem={this._renderItem}
           keyExtractor={item => item.id.toString()}
-          ListHeaderComponent={this._renderSearchBar}
+          ListHeaderComponent={<SearchBar />}
         />
       </View>
     );
