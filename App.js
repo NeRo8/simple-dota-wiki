@@ -31,12 +31,60 @@ import colors from './app/constants/colors';
 
 export default class App extends Component {
   state = {
-    filter: 'all'
+    filter_by_attack: 'all',
+    filter_by_role: 'all',
+    filter_by_attr: 'all',
+    hero_list: []
+  };
+
+  componentDidUpdate() {
+    console.log(
+      `${this.state.filter_by_attack}, ${this.state.filter_by_role}, ${
+        this.state.filter_by_attr
+      }`
+    );
+  }
+
+  setFilterByRole = role => {
+    this.setState({
+      filter_by_role: role
+    });
+  };
+
+  setFilterByAttr = attr => {
+    this.setState({
+      filter_by_attr: attr
+    });
+  };
+
+  setFilterByAttackType = attack => {
+    this.setState({
+      filter_by_attack: attack
+    });
+  };
+
+  getNewHeroList = oldHeroList => {
+    const {
+      filter_by_attack,
+      filter_by_role,
+      filter_by_attr,
+      hero_list
+    } = this.state;
+
+    if (filter_by_attack != 'all') {
+      return oldHeroList.filter(item => item.attack_type === filter_by_attack);
+    }
+
+    return oldHeroList;
   };
 
   _renderAttr = item => (
-    <TouchableOpacity>
-      <View>
+    <View>
+      <TouchableOpacity
+        onPress={() => {
+          this.setFilterByAttr(item);
+        }}
+      >
         {item === 'str' ? (
           <Image source={iconAttr.STR} style={styles.icon} />
         ) : item === 'agi' ? (
@@ -44,8 +92,8 @@ export default class App extends Component {
         ) : (
           <Image source={iconAttr.INT} style={styles.icon} />
         )}
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 
   _renderRoles = item => (
@@ -53,7 +101,11 @@ export default class App extends Component {
       horizontal
       data={item.roles}
       renderItem={({ item }) => (
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            this.setFilterByRole(item);
+          }}
+        >
           <Text style={styles.roles}>{item}</Text>
         </TouchableOpacity>
       )}
@@ -72,7 +124,11 @@ export default class App extends Component {
           </TouchableOpacity>
           {this._renderRoles(item)}
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            this.setFilterByAttackType(item.attack_type);
+          }}
+        >
           <View style={styles.attack_type}>
             <Text>{item.attack_type}</Text>
           </View>
@@ -85,7 +141,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          data={Hero}
+          data={this.getNewHeroList(Hero)}
           renderItem={this._renderItem}
           keyExtractor={item => item.id.toString()}
           ListHeaderComponent={<SearchBar />}
