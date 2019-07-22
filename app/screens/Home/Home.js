@@ -22,7 +22,6 @@ import {
 } from 'react-native';
 
 import Hero from '../../data/Hero';
-import HeroStats from '../../data/HeroStats';
 
 import SearchBar from '../../components/SearchBar';
 
@@ -121,7 +120,11 @@ class Home extends Component {
         <Text style={styles.id}>{item.id}</Text>
         {this._renderAttr(item.primary_attr)}
         <View style={{ flexDirection: 'column', width: '60%' }}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate('Profile', { heroId: item.id })
+            }
+          >
             <Text style={styles.localized_name}>{item.localized_name}</Text>
           </TouchableOpacity>
           {this._renderRoles(item)}
