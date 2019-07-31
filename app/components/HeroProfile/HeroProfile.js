@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ImageBackground } from 'react-native';
 
 import IconAttr from '../IconAttr';
 
 import styles from './styles';
+import { Icon } from 'react-native-elements';
 
 /*
   {
     
-    base_armor: -1,
     base_mr: 25,
     base_attack_min: 29,
     base_attack_max: 33,
-    base_str: 23,
-    base_agi: 24,
-    base_int: 12,
-    str_gain: 1.3,
-    agi_gain: 3.2,
-    int_gain: 1.8,
+   
     attack_range: 150,
     projectile_speed: 0,
     attack_rate: 1.4,
-    move_speed: 310,
+    
     turn_rate: 0.5,
     cm_enabled: true,
     legs: 2,
@@ -51,24 +46,65 @@ import styles from './styles';
 */
 
 class HeroProfile extends Component {
+  _renderAttrView = hero => (
+    <View style={styles.attrViewContainer}>
+      <View style={styles.attrView}>
+        <IconAttr item={'str'} />
+        <View style={styles.attr}>
+          <Text>{hero.base_str} / </Text>
+          <Text style={styles.attr_inc}>+{hero.str_gain}</Text>
+        </View>
+      </View>
+      <View style={styles.attrView}>
+        <IconAttr item={'agi'} />
+        <View style={styles.attr}>
+          <Text>{hero.base_agi} / </Text>
+          <Text style={styles.attr_inc}>+{hero.agi_gain}</Text>
+        </View>
+      </View>
+      <View style={styles.attrView}>
+        <IconAttr item={'int'} />
+        <View style={styles.attr}>
+          <Text>{hero.base_int} / </Text>
+          <Text style={styles.attr_inc}>+{hero.int_gain}</Text>
+        </View>
+      </View>
+    </View>
+  );
+
   render() {
     const { hero } = this.props;
     return (
-      <View>
-        <Image
-          resizeMode={'contain'}
-          style={{ width: 200, height: 100 }}
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.header}
           source={{ uri: `https://api.opendota.com${hero.img}` }}
-        />
-        <Text>{hero.localized_name}</Text>
-        <IconAttr item={hero.primary_attr} />
-        <Text>{hero.base_health}</Text>
-        <Text>{hero.base_health_regen}</Text>
-        <Text>{hero.attack_type}</Text>
-        <Text>{hero.roles}</Text>
-        <Text>{hero.base_mana}</Text>
-        <Text>{hero.base_mana_regen}</Text>
-        <Text>{hero.base_armor}</Text>
+        >
+          <View style={styles.headerTitle}>
+            <IconAttr item={hero.primary_attr} />
+            <Text style={styles.localizedName}>{hero.localized_name}</Text>
+          </View>
+        </ImageBackground>
+
+        <Text>Attack Type:{hero.attack_type}</Text>
+
+        <Text>Roles:{hero.roles}</Text>
+
+        <View style={styles.infoRow}>
+          <Text>HP:{hero.base_health + hero.base_str * 20} / </Text>
+          <Text style={styles.attr_inc}>+{hero.base_health_regen}</Text>
+        </View>
+
+        <View style={styles.infoRow}>
+          <Text>MP:{hero.base_mana} / </Text>
+          <Text style={styles.attr_inc}>+{hero.base_mana_regen}</Text>
+        </View>
+
+        <Text>Main Armor:{hero.base_armor + hero.base_agi * 0.16}</Text>
+
+        <Text>Move Speed: {hero.move_speed}</Text>
+
+        {this._renderAttrView(hero)}
       </View>
     );
   }
