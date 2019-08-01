@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import colors from '../../constants/colors';
 
 export default StyleSheet.create({
   container: {
-    paddingVertical: 40,
+    paddingVertical: Platform.OS === 'ios' ? 40 : 0,
     paddingHorizontal: 10,
     flex: 1,
     backgroundColor: '#B50058'

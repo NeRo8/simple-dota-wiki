@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   Text,
@@ -15,6 +7,7 @@ import {
   TouchableOpacity,
   StatusBar
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import Hero from '../../data/Hero';
 
@@ -23,6 +16,7 @@ import SearchBar from '../../components/SearchBar';
 import iconAttr from '../../constants/iconAttr';
 
 import styles from './styles';
+import colors from '../../constants/colors';
 
 class Home extends Component {
   _renderAttr = item => (
@@ -66,12 +60,14 @@ class Home extends Component {
     </View>
   );
 
+  getHeroList = heroArr => heroArr.filter(item => item.localized_name.toLowerCase().match(this.props.searchStr.toLowerCase()))
+
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor="white" barStyle="light-content" />
+        <StatusBar backgroundColor={colors.CRIMSON} barStyle="light-content" />
         <FlatList
-          data={Hero}
+          data={this.getHeroList(Hero)}
           renderItem={this._renderItem}
           keyExtractor={item => item.id.toString()}
           ListHeaderComponent={<SearchBar />}
@@ -81,4 +77,10 @@ class Home extends Component {
   }
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    searchStr: state.searchBar.searchBar
+  };
+}
+
+export default connect(mapStateToProps)(Home);

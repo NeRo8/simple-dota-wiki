@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
+import { Button } from 'react-native-elements';
 
 import HeroStat from '../../data/HeroStats';
 import HeroProfile from '../../components/HeroProfile';
@@ -13,7 +14,7 @@ class Profile extends Component {
     return (
       <View style={styles.container}>
         <HeroProfile hero={item} />
-        <Button title="Back" onPress={() => navigation.goBack()} color="#fff" />
+        <Button title="Back" onPress={() => navigation.goBack()} color="#fff" buttonStyle={styles.buttonBack}/>
       </View>
     );
   }
