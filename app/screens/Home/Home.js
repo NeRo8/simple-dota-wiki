@@ -8,6 +8,7 @@ import {
   StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 
 import Hero from '../../data/Hero';
 
@@ -19,6 +20,10 @@ import styles from './styles';
 import colors from '../../constants/colors';
 
 class Home extends Component {
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+
   _renderAttr = item => (
     <View>
       {item === 'str' ? (
@@ -65,7 +70,6 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor={colors.CRIMSON} barStyle="light-content" />
         <FlatList
           data={this.getHeroList(Hero)}
           renderItem={this._renderItem}
