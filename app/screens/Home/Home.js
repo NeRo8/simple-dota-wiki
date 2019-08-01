@@ -8,17 +8,11 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
   Text,
   View,
   FlatList,
   Image,
-  TouchableWithoutFeedback,
   TouchableOpacity,
-  Modal,
-  Button,
-  TextInput,
   StatusBar
 } from 'react-native';
 
@@ -27,7 +21,6 @@ import Hero from '../../data/Hero';
 import SearchBar from '../../components/SearchBar';
 
 import iconAttr from '../../constants/iconAttr';
-import colors from '../../constants/colors';
 
 import styles from './styles';
 
@@ -60,9 +53,7 @@ class Home extends Component {
         {this._renderAttr(item.primary_attr)}
         <View style={{ flexDirection: 'column', width: '60%' }}>
           <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('Profile', { heroId: item.id })
-            }
+            onPress={() => this.props.navigation.navigate('Profile', { heroId: item.id })}
           >
             <Text style={styles.localized_name}>{item.localized_name}</Text>
           </TouchableOpacity>

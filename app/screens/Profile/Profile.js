@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Button } from 'react-native';
 
 import HeroStat from '../../data/HeroStats';
 import HeroProfile from '../../components/HeroProfile';
