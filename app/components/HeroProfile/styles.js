@@ -10,7 +10,8 @@ export default StyleSheet.create({
     width: '100%',
     height: 100,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 20
   },
   headerTitle: {
     flexDirection: 'row',
@@ -25,6 +26,12 @@ export default StyleSheet.create({
   infoRow: {
     flexDirection: 'row',
     color: '#ffffff'
+  },
+  hp: {
+    color: 'red'
+  },
+  mp: {
+    color: 'blue'
   },
   attrViewContainer: {
     width: '100%',
@@ -41,5 +48,9 @@ export default StyleSheet.create({
   attr_inc: {
     fontWeight: '600',
     color: 'green'
+  },
+  history: {
+    color: 'white',
+    textAlign: 'justify'
   }
 });
