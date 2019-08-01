@@ -18,7 +18,8 @@ import {
   TouchableOpacity,
   Modal,
   Button,
-  TextInput
+  TextInput,
+  StatusBar
 } from 'react-native';
 
 import Hero from '../../data/Hero';
@@ -77,6 +78,7 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="white" barStyle="light-content" />
         <FlatList
           data={Hero}
           renderItem={this._renderItem}

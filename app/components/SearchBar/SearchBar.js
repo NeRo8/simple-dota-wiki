@@ -18,13 +18,24 @@ class SearchBar extends Component {
           value={this.props.searchBar}
           onChangeText={value => this.props.searchHeroByName(value)}
         />
-        <Icon
-          name="ios-search"
-          type="ionicon"
-          color={colors.SILVER}
-          size={35}
-          containerStyle={styles.iconSearch}
-        />
+        {this.props.searchBar ? (
+          <Icon
+            name="ios-close-circle"
+            type="ionicon"
+            color={colors.CRIMSON}
+            size={35}
+            containerStyle={styles.iconSearch}
+            onPress={this.props.clearSearchBar}
+          />
+        ) : (
+          <Icon
+            name="ios-search"
+            type="ionicon"
+            color={colors.SILVER}
+            size={35}
+            containerStyle={styles.iconSearch}
+          />
+        )}
       </View>
     );
   }
